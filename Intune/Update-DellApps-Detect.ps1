@@ -281,8 +281,8 @@ if ($Manufacturer -match "Dell")
             $DCUAppsAvailable = $XMLIndexCAB.Manifest.SoftwareComponent | Where-Object {$_.ComponentType.value -eq "APAC"}
             $AppNames = $DCUAppsAvailable.name.display.'#cdata-section' | Select-Object -Unique
             #This is using the x86 Windows version, not the UWP app.  You can change this if you like
-            $AppDCUVersion = ([Version[]]$Version = ($DCUAppsAvailable | Where-Object {$_.path -match 'command-update' -and $_.SupportedOperatingSystems.OperatingSystem.osArch -match "x64" -and $_.Description.Display.'#cdata-section' -notmatch "UWP"}).vendorVersion) | Sort-Object | Select-Object -Last 1
-            $AppDCU = $DCUAppsAvailable | Where-Object {$_.path -match 'command-update' -and $_.SupportedOperatingSystems.OperatingSystem.osArch -match "x64" -and $_.Description.Display.'#cdata-section' -notmatch "UWP" -and $_.vendorVersion -eq $AppDCUVersion}
+            $AppDCUVersion = ([Version[]]$Version = ($DCUAppsAvailable | Where-Object {$_.path -match 'Command-Update-Windows-Universal-Application' -and $_.SupportedOperatingSystems.OperatingSystem.osArch -match "x64" -and $_.Description.Display.'#cdata-section' -notmatch "UWP"}).vendorVersion) | Sort-Object | Select-Object -Last 1
+            $AppDCU = $DCUAppsAvailable | Where-Object {$_.path -match 'Command-Update-Windows-Universal-Application -and $_.SupportedOperatingSystems.OperatingSystem.osArch -match "x64" -and $_.Description.Display.'#cdata-section' -notmatch "UWP" -and $_.vendorVersion -eq $AppDCUVersion}
             $AppDCMVersion = ([Version[]]$Version = ($DCUAppsAvailable | Where-Object {$_.path -match 'Command-Monitor' -and $_.SupportedOperatingSystems.OperatingSystem.osArch -match "x64"} | Select-Object -Property vendorVersion).vendorVersion) | Sort-Object | Select-Object -last 1
             $AppDCM = $DCUAppsAvailable | Where-Object {$_.path -match 'Command-Monitor' -and $_.SupportedOperatingSystems.OperatingSystem.osArch -match "x64" -and $_.vendorVersion -eq $AppDCMVersion }
             
